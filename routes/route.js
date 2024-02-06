@@ -1,3 +1,7 @@
-const express=require('express');
-const router= express.Router();
-module.exports = router
+const express = require("express");
+const router = express.Router();
+
+var clientController = require("../src/client/clientController");
+router.route("/client/inscription").post(clientController.inscriptionClient);
+
+module.exports = router;
