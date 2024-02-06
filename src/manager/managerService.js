@@ -5,7 +5,8 @@ var logIn=async(data)=>{
 // 1 =>1 mdp incorrect
 // 2 =>2 ok
     if(mail){
-        const manager=await managerModel.findOne({email:data.email,mdp:data.mdp});
+        // mbola ovaina comparena await bcrypt.compare(plainPassword, hashedPassword);
+        const manager=await managerModel.findOne({email:data.email,mdp:data.mdp}); 
         if(manager){ return 2;}
         else{return 1;}
     }  

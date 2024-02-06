@@ -1,9 +1,10 @@
 const express=require('express');
 const app = express();
+const cors= require('cors');
 var routes= require('./routes/route');
 const mongoose = require('mongoose');
 const url = 'mongodb://127.0.0.1:27017/Coiffure';
-const cors= require('cors');
+
 
 mongoose.connect(url)
 const db = mongoose.connection

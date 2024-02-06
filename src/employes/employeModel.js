@@ -25,8 +25,8 @@ var employeSchema = new Schema({
   h_fin: {
     type: Number,
     required: true,
-  },
-  collection: "employes",
+  }
+ 
 });
 
-module.exports = mongoose.model("employe", employeSchema);
+module.exports = mongoose.model("employe", employeSchema,'employes');
