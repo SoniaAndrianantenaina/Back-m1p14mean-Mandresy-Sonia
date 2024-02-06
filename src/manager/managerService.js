@@ -1,11 +1,16 @@
 var managerModel = require("./managerModel");
 var logIn=async(data)=>{
-    const manager=await managerModel.findOne({email:data.email,mdp:data.mdp});
-    if(manager){
-        return true;
+    const mail=await managerModel.findOne({email:data.email});
+// 0 =>mail incorrect
+// 1 =>1 mdp incorrect
+// 2 =>2 ok
+    if(mail){
+        const manager=await managerModel.findOne({email:data.email,mdp:data.mdp});
+        if(manager){ return 2;}
+        else{return 1;}
     }  
     else{
-        return false;
+        return 0;
     }
 }
 
