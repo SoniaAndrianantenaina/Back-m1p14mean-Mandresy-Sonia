@@ -10,7 +10,6 @@ var managerSchema = new Schema({
     type: String,
     required: true,
   },
-  collection: "managers",
 });
 
-module.exports = mongoose.model("manager", managerSchema);
+module.exports = mongoose.model("manager", managerSchema,"managers");
