@@ -1,5 +1,5 @@
 var clientModel = require("./clientModel");
-const bcrypt = require("./bcrypt");
+const bcrypt = require("bcrypt");
 
 module.exports.inscriptionClientService = async (clientDetails) => {
   try {
