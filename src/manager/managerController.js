@@ -1,4 +1,5 @@
 var managerService = require('./managerService');
+var gest_token = require('../Gestion_token');
 var to_logfn=async(req,res)=>{
     var result= await managerService.logIn(req.body);
     if(result==0){
@@ -8,7 +9,12 @@ var to_logfn=async(req,res)=>{
         res.send({"status": false,"data": "Mot de passe incorrect"});
     }
     else{
-        res.send({"status": true , "data": "Connecté!"});
+        let data={
+            'id':result
+        }
+        data=gest_token.get_token(data);
+        req.session.user_Id = result;
+        res.send({"status": true , "data": data});
 
     }
 }
