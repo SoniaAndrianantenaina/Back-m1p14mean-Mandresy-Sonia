@@ -22,7 +22,6 @@ var clientSchema = new Schema({
     type: Number,
     required: true,
   },
-  collection: "clients",
 });
 
-module.exports = mongoose.model("client", clientSchema);
+module.exports = mongoose.model("client", clientSchema, "clients");
