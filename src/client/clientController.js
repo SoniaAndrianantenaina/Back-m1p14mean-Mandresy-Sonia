@@ -9,6 +9,18 @@ var inscriptionClient = async (req, res) => {
   }
 };
 
+var loginClient = async (req, res) => {
+  var result = await clientService.login(req.body);
+  if (result == 0) {
+    res.send({ status: false, data: "Adresse mail incorrect" });
+  } else if (result == 1) {
+    res.send({ status: false, data: "Mot de passe incorrect" });
+  } else {
+    res.send({ status: true, data: "Connecté!" });
+  }
+};
+
 module.exports = {
   inscriptionClient,
+  loginClient,
 };

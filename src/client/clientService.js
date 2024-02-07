@@ -22,3 +22,21 @@ module.exports.inscriptionClientService = async (clientDetails) => {
     throw error;
   }
 };
+
+module.exports.login = async (clientDetails) => {
+  const { email, mdp } = clientDetails;
+
+  const emailClient = await clientModel.findOne({ email });
+
+  if (emailClient) {
+    const mdpVerified = await bcrypt.compare(mdp, emailClient.mdp);
+
+    if (mdpVerified) {
+      return 2; // Mot de passe correct
+    } else {
+      return 1; // Mot de passe incorrect
+    }
+  } else {
+    return 0; // Aucun utilisateur trouvé avec cet email
+  }
+};
