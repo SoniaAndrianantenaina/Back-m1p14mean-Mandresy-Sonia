@@ -7,7 +7,8 @@ var logIn=async(data)=>{
     if(mail){
         // mbola ovaina comparena await bcrypt.compare(plainPassword, hashedPassword);
         const manager=await managerModel.findOne({email:data.email,mdp:data.mdp}); 
-        if(manager){ return 2;}
+        if(manager){ 
+            return manager._id;}
         else{return 1;}
     }  
     else{
