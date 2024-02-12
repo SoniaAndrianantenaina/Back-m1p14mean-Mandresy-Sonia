@@ -8,10 +8,10 @@ var employeSchema = new Schema({
   },
   prenom: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
+    unique: true,
     required: true,
   },
   mdp: {
@@ -19,11 +19,11 @@ var employeSchema = new Schema({
     required: true,
   },
   h_debut: {
-    type: Number,
+    type: String,
     required: true,
   },
   h_fin: {
-    type: Number,
+    type: String,
     required: true,
   }
  
