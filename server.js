@@ -1,9 +1,19 @@
 const express=require('express');
+const session = require('express-session');
 const app = express();
+const cors= require('cors');
 var routes= require('./routes/route');
 const mongoose = require('mongoose');
-const url = 'mongodb://127.0.0.1:27017/Coiffure';
-const cors= require('cors');
+const config=require('./Config.js');
+const url = 'mongodb://127.0.0.1:27017/'+config.db_name;
+
+app.use(session({
+  secret: 'MaCléSecrète123!',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: config.use_https } // Remplacez false par true si vous utilisez HTTPS
+}));
+
 
 mongoose.connect(url)
 const db = mongoose.connection

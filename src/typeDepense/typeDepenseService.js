@@ -1,0 +1,1 @@
+var typeDepenseModel = require("./typeDepenseModel");

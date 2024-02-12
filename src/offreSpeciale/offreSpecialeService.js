@@ -1,0 +1,1 @@
+var offreSpecialeModel = require("./offreSpecialeModel");
