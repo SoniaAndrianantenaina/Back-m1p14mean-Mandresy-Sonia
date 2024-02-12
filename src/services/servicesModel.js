@@ -5,6 +5,7 @@ var userSchema = new Schema({
   nom: {
     type: String,
     required: true,
+    unique: true
   },
   delai: {
     type: Number,
@@ -18,7 +19,6 @@ var userSchema = new Schema({
     type: Number,
     required: true,
   },
-  collection: "services",
 });
 
-module.exports = mongoose.model("service", userSchema);
+module.exports = mongoose.model("service", userSchema,"services");
