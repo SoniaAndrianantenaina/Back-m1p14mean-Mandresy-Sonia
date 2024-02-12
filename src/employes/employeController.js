@@ -16,7 +16,7 @@ var get_all_emp_fn=async(req,res)=>{
 }
 
 var update_emp_fn=async(req,res)=>{
-    let status=await empservice.update_emp(req.body.id,req.body);
+    let status=await empservice.update_emp(req.body.id,req.body.data);
     if(status){
         res.send({"status": true , "data": "Employé mis à jour!"});
     }

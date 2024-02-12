@@ -35,6 +35,7 @@ var saveemp=async(newemp)=>{
     try{
         await emp.save();
         await mail_serv.envoieMail(emp.email,mdp,true);
+        console.log("mdp :", mdp);
         return true;
     }
     catch(error){
@@ -54,11 +55,11 @@ var get_all=async()=>{
 }
 
 var mail_not_change=async(id,email)=>{
-    try{
-        await employe.findOne({id:id,email:email});
+   let check=await employe.findOne({_id:id,email:email});
+    if(check){
         return true;
     }
-    catch{
+    else{
         return false;
     }
 } 
@@ -67,8 +68,7 @@ var update_emp=async(id,data)=>{
     if(await mail_not_change(id,data.email)){
         delete data.email;
     }
-
-        console.log(data);  
+    console.log(data);
     try{
         await employe.findByIdAndUpdate(id,data);
         return true;
@@ -79,4 +79,5 @@ var update_emp=async(id,data)=>{
     }
     
 }
+
 module.exports={saveemp,get_all,update_emp};
