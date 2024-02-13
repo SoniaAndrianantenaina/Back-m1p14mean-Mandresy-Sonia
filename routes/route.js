@@ -14,5 +14,6 @@ router.patch("/manager/employe/update", employeeContre.update_emp_fn);
 router.get("/manager/services",serv_contr.listefn);
 router.post("/manager/service/save",serv_contr.save_fn);
 router.patch("/manager/service/update",serv_contr.update_fn);
+router.post("/employe/login",employeeContre.login_fn);
 
 module.exports = router;

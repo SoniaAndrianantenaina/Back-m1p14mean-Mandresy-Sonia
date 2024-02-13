@@ -1,4 +1,5 @@
 var empservice=require('./employeService');
+var gest_token = require('../Gestion_token');
 var save_emp_fn=async(req,res)=>{
     let status=await empservice.saveemp(req.body);
     if(status){
@@ -26,4 +27,21 @@ var update_emp_fn=async(req,res)=>{
     }
 }
 
-module.exports={save_emp_fn,get_all_emp_fn,update_emp_fn}
+var login_fn=async(req,res)=>{
+    let status=await empservice.login(req.body);
+    if(status==0){
+        res.send({"status": false , "data": "Adresse email incorrect"});
+    }
+    else if(status==1){
+        res.send({"status": false , "data": "Mot de passe incorrect"});
+    }
+    else{
+        let data={
+            'id':status
+        }
+        data=gest_token.get_token(status);
+        req.session.user_Id = status;
+        res.send({"status": true , "data": data});
+    }
+}
+module.exports={save_emp_fn,get_all_emp_fn,update_emp_fn,login_fn}

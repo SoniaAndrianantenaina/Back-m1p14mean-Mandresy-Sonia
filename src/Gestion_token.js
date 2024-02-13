@@ -14,8 +14,8 @@ const get_token=(data)=>{
     };
     let value={
         "token":jwt.sign(playload,key,options),
-        "jeton_r":jwt.sign(playload,key2,options2),
-        "id":data.id
+        "jeton_r":jwt.sign(playload,key2,options2)
+        // "id":data.id
     }
    return value;
 }
@@ -34,8 +34,8 @@ const verif_token=(data)=>{ // json contenant token,jeton_r,_id
         jwt.verif(data.token,key);
         let value={
             "token":data.token,
-            "jeton_r":data.jeton_r,
-            "id":data._id
+            "jeton_r":data.jeton_r
+            // "id":data._id
         }
         return value;
     }
