@@ -3,10 +3,17 @@ const router = express.Router();
 var managerContre = require("../src/manager/managerController");
 var employeeContre = require("../src/employes/employeController");
 var clientController = require("../src/client/clientController");
+var preferenceController = require("../src/preferences/preferencesController");
 
 router.post("/manager/authentification", managerContre.to_logfn);
 router.post("/manager/ajout_employe", employeeContre.save_emp_fn);
+
 router.route("/client/inscription").post(clientController.inscriptionClient);
 router.route("/client/login").post(clientController.loginClient);
+
+router.route("/preferences/ajout").post(preferenceController.ajoutPref);
+router
+  .route("/preferences/liste/:clientId")
+  .get(preferenceController.listePref);
 
 module.exports = router;

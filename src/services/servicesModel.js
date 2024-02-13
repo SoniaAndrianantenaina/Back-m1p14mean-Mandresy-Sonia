@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+var serviceSchema = new Schema({
   nom: {
     type: String,
     required: true,
@@ -18,7 +18,5 @@ var userSchema = new Schema({
     type: Number,
     required: true,
   },
-  collection: "services",
 });
-
-module.exports = mongoose.model("service", userSchema);
+module.exports = mongoose.model("service", serviceSchema, "services");

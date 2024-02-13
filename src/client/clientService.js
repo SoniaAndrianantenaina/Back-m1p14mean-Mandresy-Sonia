@@ -32,11 +32,11 @@ module.exports.login = async (clientDetails) => {
     const mdpVerified = await bcrypt.compare(mdp, emailClient.mdp);
 
     if (mdpVerified) {
-      return 2; // Mot de passe correct
+      return { status: true, message: "Connecté!", clientId: emailClient._id }; // Mot de passe correct, renvoie l'ID du client
     } else {
-      return 1; // Mot de passe incorrect
+      return { status: false, message: "Mot de passe incorrect" };
     }
   } else {
-    return 0; // Aucun utilisateur trouvé avec cet email
+    return { status: false, message: "Adresse email incorrecte" };
   }
 };
