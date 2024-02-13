@@ -95,4 +95,15 @@ var login=async(data)=>{
     }
 }
 
-module.exports={saveemp,get_all,update_emp,login};
+var get_profil=async(id)=>{
+    try{
+        let user=await employe.findById(id);
+        return user;
+    }
+    catch(err){
+        console.error(err);
+    }
+
+}
+
+module.exports={saveemp,get_all,update_emp,login,get_profil};

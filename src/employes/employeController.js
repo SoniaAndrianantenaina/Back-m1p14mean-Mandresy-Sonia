@@ -40,8 +40,22 @@ var login_fn=async(req,res)=>{
             'id':status
         }
         data=gest_token.get_token(status);
+        // console.log(status);
         req.session.user_Id = status;
+        // console.log(req.session.user_Id);
         res.send({"status": true , "data": data});
     }
 }
-module.exports={save_emp_fn,get_all_emp_fn,update_emp_fn,login_fn}
+
+var profil_fn=async(req,res)=>{
+    console.log(req.session.user_Id);
+    let user=await empservice.get_profil(req.session.user_Id);
+    
+    if(user){
+        res.send({"status": true , "data": user});
+    }
+    else{
+        res.send({"status": false , "data": "erreur"});
+    }
+}
+module.exports={save_emp_fn,get_all_emp_fn,update_emp_fn,login_fn,profil_fn}
