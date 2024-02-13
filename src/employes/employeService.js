@@ -80,4 +80,19 @@ var update_emp=async(id,data)=>{
     
 }
 
-module.exports={saveemp,get_all,update_emp};
+var login=async(data)=>{
+    let check=await employe.findOne({email:data.email});
+    if(check){
+        if(await bcrypt.compare(data.mdp,check.mdp)){
+            return check._id;
+        }
+        else{
+            return 1;
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+module.exports={saveemp,get_all,update_emp,login};
