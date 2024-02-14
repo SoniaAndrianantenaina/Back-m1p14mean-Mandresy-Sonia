@@ -7,8 +7,7 @@ var serv_contr=require("../src/services/servicesController");
 var gest_token = require("../src/Gestion_token");
 
 const check_token =(req, res,next)=>{
-    let check=gest_token.verif_token(req.body,req.session.user_Id);
-    // console.log(req.body);
+    let check=gest_token.verif_token(req.body.ref);
     if(!check){
         res.send({"status": false , "data": "Session expiré"});
     }
@@ -16,9 +15,6 @@ const check_token =(req, res,next)=>{
         next();
     }
 }
-
-
-
 
 
 router.post("/manager/authentification", managerContre.to_logfn);
@@ -32,7 +28,7 @@ router.post("/manager/service/save",serv_contr.save_fn);
 router.patch("/manager/service/update",serv_contr.update_fn);
 router.post("/employe/login",employeeContre.login_fn);
 router.post("/employe/profil",check_token,employeeContre.profil_fn);
-
+router.patch("/employe/update", employeeContre.update_emp_fn);
 
 
 module.exports = router;
