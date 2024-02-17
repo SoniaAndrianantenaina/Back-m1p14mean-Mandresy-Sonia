@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+var serviceSchema = new Schema({
   nom: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   delai: {
     type: Number,
@@ -20,5 +20,4 @@ var userSchema = new Schema({
     required: true,
   },
 });
-
-module.exports = mongoose.model("service", userSchema,"services");
+module.exports = mongoose.model("service", serviceSchema, "services");
