@@ -19,11 +19,16 @@ var get_all_emp_fn=async(req,res)=>{
 
 var update_emp_fn=async(req,res)=>{
     let status=await empservice.update_emp(req.body.id.replace(/"/g, ''),req.body.data);
+    let data={
+        "msg":"Employé mis à jour",
+        "ref":req.body.ref
+    }
     if(status){
-        res.send({"status": true , "data": "Employé mis à jour!"});
+        res.send({"status": true , "data": data});
     }
     else{
-        res.send({"status": false , "data": "Cette email a déjà un compte!"});
+        data.msg="Cette email a déjà un compte!"
+        res.send({"status": false , "data": data});
 
     }
 }
@@ -56,4 +61,20 @@ var profil_fn = async (req, res) => {
         res.send({"status": false , "data": "Session expiré"});
     }
 }
-module.exports={save_emp_fn,get_all_emp_fn,update_emp_fn,login_fn,profil_fn}
+
+var update_mdp_fn= async(req, res) => {
+    // console.log(req.body.data);
+    let check=await empservice.update_mdp(req.body.id.replace(/"/g, ''), req.body.data);
+    let data={
+        "msg":"Mot de passe changé",
+        "ref":req.body.ref
+    }
+    if(check){
+        res.send({"status": true , "data": data});
+    }
+    else{
+        data.msg="Mot de passe incorrect"
+        res.send({"status": false , "data": data});
+    }
+}
+module.exports={save_emp_fn,get_all_emp_fn,update_emp_fn,login_fn,profil_fn,update_mdp_fn}

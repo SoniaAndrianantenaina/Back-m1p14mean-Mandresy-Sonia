@@ -12,6 +12,7 @@ const check_token =(req, res,next)=>{
         res.send({"status": false , "data": "Session expiré"});
     }
     else{
+        req.body.ref=check;
         next();
     }
 }
@@ -29,6 +30,7 @@ router.patch("/manager/service/update",serv_contr.update_fn);
 router.post("/employe/login",employeeContre.login_fn);
 router.post("/employe/profil",check_token,employeeContre.profil_fn);
 router.patch("/employe/update", employeeContre.update_emp_fn);
+router.patch("/employe/update/mdp",check_token, employeeContre.update_mdp_fn);
 
 
 module.exports = router;

@@ -96,14 +96,37 @@ var login=async(data)=>{
 }
 
 var get_profil=async(id)=>{
-    try{
         let user=await employe.findById(id);
-        return user;
-    }
-    catch(err){
-        console.error(err);
-    }
-
+        if(user){
+            return user;
+        }
+        else{
+            return false;
+        }
+        
 }
 
-module.exports={saveemp,get_all,update_emp,login,get_profil};
+var update_mdp=async(id,data)=>{
+    let user=await employe.findById(id);
+    let newU={
+        "mdp": await bcrypt.hash(data.new_mdp,10)  
+    }
+    console.log(newU);
+       if(await bcrypt.compare(data.mdp,user.mdp)){
+            try{
+                await employe.findByIdAndUpdate(id,newU);
+                return true;
+            }
+            catch(err){ 
+                console.error(err);
+                return false;
+            }
+       }
+       else{
+            console.log("Mdp incorrect");
+            return false;
+       }
+   
+}
+
+module.exports={saveemp,get_all,update_emp,login,get_profil,update_mdp};
