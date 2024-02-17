@@ -1,5 +1,6 @@
 var empservice=require('./employeService');
 var gest_token = require('../Gestion_token');
+
 var save_emp_fn=async(req,res)=>{
     let status=await empservice.saveemp(req.body);
     if(status){
@@ -17,17 +18,22 @@ var get_all_emp_fn=async(req,res)=>{
 }
 
 var update_emp_fn=async(req,res)=>{
-    let status=await empservice.update_emp(req.body.id,req.body.data);
+    let status=await empservice.update_emp(req.body.id.replace(/"/g, ''),req.body.data);
+    let data={
+        "msg":"Employé mis à jour",
+        "ref":req.body.ref
+    }
     if(status){
-        res.send({"status": true , "data": "Employé mis à jour!"});
+        res.send({"status": true , "data": data});
     }
     else{
-        res.send({"status": false , "data": "Cette email a déjà un compte!"});
+        data.msg="Cette email a déjà un compte!"
+        res.send({"status": false , "data": data});
 
     }
 }
 
-var login_fn=async(req,res)=>{
+var login_fn=async (req,res)=>{
     let status=await empservice.login(req.body);
     if(status==0){
         res.send({"status": false , "data": "Adresse email incorrect"});
@@ -39,9 +45,36 @@ var login_fn=async(req,res)=>{
         let data={
             'id':status
         }
-        data=gest_token.get_token(status);
-        req.session.user_Id = status;
+        data=gest_token.get_token(data);
+
         res.send({"status": true , "data": data});
     }
 }
-module.exports={save_emp_fn,get_all_emp_fn,update_emp_fn,login_fn}
+
+var profil_fn = async (req, res) => {
+    let user = await empservice.get_profil(req.body.ref.id);
+    
+    if (user) {
+        res.send({"status": true , "data": user});
+    }
+    else {
+        res.send({"status": false , "data": "Session expiré"});
+    }
+}
+
+var update_mdp_fn= async(req, res) => {
+    // console.log(req.body.data);
+    let check=await empservice.update_mdp(req.body.id.replace(/"/g, ''), req.body.data);
+    let data={
+        "msg":"Mot de passe changé",
+        "ref":req.body.ref
+    }
+    if(check){
+        res.send({"status": true , "data": data});
+    }
+    else{
+        data.msg="Mot de passe incorrect"
+        res.send({"status": false , "data": data});
+    }
+}
+module.exports={save_emp_fn,get_all_emp_fn,update_emp_fn,login_fn,profil_fn,update_mdp_fn}

@@ -14,14 +14,14 @@ const get_token=(data)=>{
     };
     let value={
         "token":jwt.sign(playload,key,options),
-        "jeton_r":jwt.sign(playload,key2,options2)
-        // "id":data.id
+        "jeton_r":jwt.sign(playload,key2,options2),
+        "id":data.id
     }
    return value;
 }
 const verif_rafraichissement=(data)=>{
     try{
-        jwt.verif(data.jeton_r,key2);
+        jwt.verify(data.jeton_r,key2);
         return true;
     }
     catch(e){
@@ -31,19 +31,26 @@ const verif_rafraichissement=(data)=>{
 
 const verif_token=(data)=>{ // json contenant token,jeton_r,_id
     try{
-        jwt.verif(data.token,key);
+        data.token=data.token.replace(/"/g, '');
+        data.jeton_r=data.jeton_r.replace(/"/g, '')
+        data.id=data.id.replace(/"/g, '')
+        jwt.verify(data.token,key);
         let value={
             "token":data.token,
-            "jeton_r":data.jeton_r
-            // "id":data._id
+            "jeton_r":data.jeton_r,
+            "id":data.id
         }
+        console.log('mety');
         return value;
     }
     catch(e){
         if(verif_rafraichissement(data)){
+           
+            console.log('mety2');
             return get_token(data);
         }
         else{
+            console.log(e);
             return false;
         }
     }
