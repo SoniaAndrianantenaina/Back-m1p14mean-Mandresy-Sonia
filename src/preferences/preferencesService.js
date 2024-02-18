@@ -29,7 +29,7 @@ async function ajouterPreferences(clientId, serviceId, employeId) {
 
 async function listerPreferences(clientId) {
   try {
-    console.log(clientId);
+    // console.log(clientId);
     const preferences = await preferencesModel.find({ client: clientId });
     const preferencesWithDetails = [];
 
