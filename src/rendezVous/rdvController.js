@@ -19,8 +19,5 @@ var ajoutPriseRDV = async (req, res) => {
   }
 };
 
-var listefn=async(req,res)=>{
-    let liste= await rdvserv.liste();
-    res.send({"data": liste})
-}
-module.exports ={ajoutPriseRDV,listefn};
+
+module.exports ={ajoutPriseRDV};

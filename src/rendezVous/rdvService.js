@@ -25,10 +25,7 @@ async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total) {
   }
 }
 
-var liste=async()=>{
-    let liste= await rdvModel.find({});
-    return liste;
-}
+
 
 module.exports = { priseRDV };
 

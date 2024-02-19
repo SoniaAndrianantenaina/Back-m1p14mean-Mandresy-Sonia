@@ -52,7 +52,7 @@ router
   .route("/client/ajoutServicesRDV")
   .post(rdvServController.ajoutServicesPriseRDV);
 
-router.get('/rdvs',rdvContr.listefn);
+router.get("/employe/planning/:id/:date",rdvServController.planning_emp_fn);
 
 
 module.exports = router;
