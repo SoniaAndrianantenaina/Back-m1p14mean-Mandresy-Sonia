@@ -1,6 +1,6 @@
 const rdvService = require("./rdvService");
 
-module.exports.ajoutPriseRDV = async (req, res) => {
+var ajoutPriseRDV = async (req, res) => {
   try {
     const { client, date_priseRDV, dateRDV, paye, montant_Total } = req.body;
     const rdvAjoutee = await rdvService.priseRDV(
@@ -18,3 +18,9 @@ module.exports.ajoutPriseRDV = async (req, res) => {
       .json({ message: "Erreur lors de l'ajout de la prise de RDV" });
   }
 };
+
+var listefn=async(req,res)=>{
+    let liste= await rdvserv.liste();
+    res.send({"data": liste})
+}
+module.exports ={ajoutPriseRDV,listefn};

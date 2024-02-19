@@ -1,6 +1,7 @@
 const clientModel = require("../client/clientModel");
 var rdvModel = require("./rdvModel");
 
+
 async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total) {
   try {
     const client = await clientModel.findById(clientId);
@@ -24,4 +25,10 @@ async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total) {
   }
 }
 
+var liste=async()=>{
+    let liste= await rdvModel.find({});
+    return liste;
+}
+
 module.exports = { priseRDV };
+
