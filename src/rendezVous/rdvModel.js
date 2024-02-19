@@ -23,7 +23,7 @@ var rdvSchema = new Schema({
     type: Number,
     required: true,
   },
-  collection: "rdvs",
+  // collection: "rdvs",
 });
 
-module.exports = mongoose.model("rdv", rdvSchema);
+module.exports = mongoose.model("rdv", rdvSchema,"rdvs");

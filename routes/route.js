@@ -7,6 +7,7 @@ var preferenceController = require("../src/preferences/preferencesController");
 
 var serv_contr=require("../src/services/servicesController");
 var gest_token = require("../src/Gestion_token");
+var rdvContr=require("../src/rendezVous/rdvController");
 
 const check_token =(req, res,next)=>{
     let check=gest_token.verif_token(req.body.ref);
@@ -39,6 +40,6 @@ router.route("/preferences/ajout").post(preferenceController.ajoutPref);
 router
   .route("/preferences/liste/:clientId")
   .get(preferenceController.listePref);
-
+router.get('/rdvs',rdvContr.listefn);
 
 module.exports = router;
