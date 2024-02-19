@@ -4,42 +4,55 @@ var managerContre = require("../src/manager/managerController");
 var employeeContre = require("../src/employes/employeController");
 var clientController = require("../src/client/clientController");
 var preferenceController = require("../src/preferences/preferencesController");
+var rdvController = require("../src/rendezVous/rdvController");
+var rdvServController = require("../src/rdvServices/rdvServController");
 
-var serv_contr=require("../src/services/servicesController");
+var serv_contr = require("../src/services/servicesController");
 var gest_token = require("../src/Gestion_token");
 var rdvContr=require("../src/rendezVous/rdvController");
 
-const check_token =(req, res,next)=>{
-    let check=gest_token.verif_token(req.body.ref);
-    if(!check){
-        res.send({"status": false , "data": "Session expiré"});
-    }
-    else{
-        req.body.ref=check;
-        next();
-    }
-}
-
+const check_token = (req, res, next) => {
+  let check = gest_token.verif_token(req.body.ref);
+  if (!check) {
+    res.send({ status: false, data: "Session expiré" });
+  } else {
+    req.body.ref = check;
+    next();
+  }
+};
 
 router.post("/manager/authentification", managerContre.to_logfn);
 router.post("/manager/ajout_employe", employeeContre.save_emp_fn);
 
+//clients
 router.route("/client/inscription").post(clientController.inscriptionClient);
 router.route("/client/login").post(clientController.loginClient);
+
 router.get("/manager/employes", employeeContre.get_all_emp_fn);
 router.patch("/manager/employe/update", employeeContre.update_emp_fn);
 
-router.get("/manager/services",serv_contr.listefn);
-router.post("/manager/service/save",serv_contr.save_fn);
-router.patch("/manager/service/update",serv_contr.update_fn);
-router.post("/employe/login",employeeContre.login_fn);
-router.post("/employe/profil",check_token,employeeContre.profil_fn);
+router.get("/manager/services", serv_contr.listefn);
+router.post("/manager/service/save", serv_contr.save_fn);
+router.patch("/manager/service/update", serv_contr.update_fn);
+router.post("/employe/login", employeeContre.login_fn);
+router.post("/employe/profil", check_token, employeeContre.profil_fn);
 router.patch("/employe/update", employeeContre.update_emp_fn);
-router.patch("/employe/update/mdp",check_token, employeeContre.update_mdp_fn);
+router.patch("/employe/update/mdp", check_token, employeeContre.update_mdp_fn);
+
+//preferences
 router.route("/preferences/ajout").post(preferenceController.ajoutPref);
 router
   .route("/preferences/liste/:clientId")
   .get(preferenceController.listePref);
+
+
+//rdv
+router.route("/client/ajoutRDV").post(rdvController.ajoutPriseRDV);
+router
+  .route("/client/ajoutServicesRDV")
+  .post(rdvServController.ajoutServicesPriseRDV);
+
 router.get('/rdvs',rdvContr.listefn);
+
 
 module.exports = router;

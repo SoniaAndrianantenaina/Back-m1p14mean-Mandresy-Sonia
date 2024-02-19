@@ -3,17 +3,17 @@ var Schema = mongoose.Schema;
 
 var rdvServSchema = new Schema({
   rdv: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "rdv",
     required: true,
   },
   service: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "service",
     required: true,
   },
   employe: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "employe",
     required: true,
   },
@@ -21,7 +21,10 @@ var rdvServSchema = new Schema({
     type: Number,
     required: true,
   },
-  collection: "rdv_services",
+  fait: {
+    type: Boolean,
+    required: true,
+  },
 });
 
-module.exports = mongoose.model("rdvServices", rdvServSchema);
+module.exports = mongoose.model("rdvServices", rdvServSchema, "rdvServices");

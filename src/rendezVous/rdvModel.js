@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var rdvSchema = new Schema({
   client: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "client",
     required: true,
   },
@@ -23,7 +23,6 @@ var rdvSchema = new Schema({
     type: Number,
     required: true,
   },
-  // collection: "rdvs",
 });
 
-module.exports = mongoose.model("rdv", rdvSchema,"rdvs");
+module.exports = mongoose.model("rdv", rdvSchema, "rdv");
