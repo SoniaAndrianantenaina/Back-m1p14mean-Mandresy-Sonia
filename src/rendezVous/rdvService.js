@@ -26,6 +26,17 @@ async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total) {
 }
 
 
+async function listerRDV(clientId) {
+  try {
+    const priseRdvs = await rdvModel
+      .find({ client: clientId })
+      .populate("client");
+    return priseRdvs;
+  } catch (error) {
+    console.error("erreur recup liste RDV Client :", error);
+    throw error;
+  }
+}
 
-module.exports = { priseRDV };
+module.exports = { priseRDV, listerRDV };
 
