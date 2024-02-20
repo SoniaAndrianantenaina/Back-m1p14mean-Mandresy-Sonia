@@ -17,7 +17,11 @@ var rdvServSchema = new Schema({
     ref: "employe",
     required: true,
   },
-  heure: {
+  heure_debut: {
+    type: Number,
+    required: true,
+  },
+  heure_fin: {
     type: Number,
     required: true,
   },

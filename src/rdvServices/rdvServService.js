@@ -3,7 +3,14 @@ const rdvModel = require("../rendezVous/rdvModel");
 const serviceModel = require("../services/servicesModel");
 const employeModel = require("../employes/employeModel");
 
-async function ajoutRDVServices(rdvId, serviceId, employeId, heure, fait) {
+async function ajoutRDVServices(
+  rdvId,
+  serviceId,
+  employeId,
+  heure_debut,
+  heure_fin,
+  fait
+) {
   try {
     const rdv = await rdvModel.findById(rdvId);
     const service = await serviceModel.findById(serviceId);
@@ -13,7 +20,8 @@ async function ajoutRDVServices(rdvId, serviceId, employeId, heure, fait) {
       rdv,
       service,
       employe,
-      heure,
+      heure_debut,
+      heure_fin,
       fait,
     });
 

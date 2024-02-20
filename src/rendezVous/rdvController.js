@@ -18,3 +18,14 @@ module.exports.ajoutPriseRDV = async (req, res) => {
       .json({ message: "Erreur lors de l'ajout de la prise de RDV" });
   }
 };
+
+module.exports.listePriseRDV = async (req, res) => {
+  try {
+    const clientId = req.params.clientId;
+    const listeRDV = await rdvService.listerRDV(clientId);
+    res.status(201).json(listeRDV);
+  } catch (error) {
+    console.error("erreur liste prise RDV:", error);
+    res.status(500).json({ message: "erreur liste" });
+  }
+};

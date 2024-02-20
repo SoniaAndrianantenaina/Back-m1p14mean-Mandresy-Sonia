@@ -2,12 +2,13 @@ const rdvServServices = require("./rdvServService");
 
 module.exports.ajoutServicesPriseRDV = async (req, res) => {
   try {
-    const { rdv, service, employe, heure, fait } = req.body;
+    const { rdv, service, employe, heure_debut, heure_fin, fait } = req.body;
     const rdvServAjoutee = await rdvServServices.ajoutRDVServices(
       rdv,
       service,
       employe,
-      heure,
+      heure_debut,
+      heure_fin,
       fait
     );
     res.status(201).json(rdvServAjoutee);

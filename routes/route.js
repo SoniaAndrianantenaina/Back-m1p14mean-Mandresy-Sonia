@@ -46,6 +46,7 @@ router
 
 //rdv
 router.route("/client/ajoutRDV").post(rdvController.ajoutPriseRDV);
+router.route("/client/listeRDV/:clientId").get(rdvController.listePriseRDV);
 router
   .route("/client/ajoutServicesRDV")
   .post(rdvServController.ajoutServicesPriseRDV);
