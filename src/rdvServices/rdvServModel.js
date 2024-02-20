@@ -18,11 +18,11 @@ var rdvServSchema = new Schema({
     required: true,
   },
   heure_debut: {
-    type: Number,
+    type: String,
     required: true,
   },
   heure_fin: {
-    type: Number,
+    type: String,
     required: true,
   },
   fait: {

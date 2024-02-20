@@ -10,6 +10,7 @@ var rdvServController = require("../src/rdvServices/rdvServController");
 var serv_contr = require("../src/services/servicesController");
 var gest_token = require("../src/Gestion_token");
 var rdvContr=require("../src/rendezVous/rdvController");
+const { ajoutRDVServices } = require("../src/rdvServices/rdvServService");
 
 const check_token = (req, res, next) => {
   let check = gest_token.verif_token(req.body.ref);
@@ -53,7 +54,8 @@ router
   .route("/client/ajoutServicesRDV")
   .post(rdvServController.ajoutServicesPriseRDV);
 
-router.get("/employe/planning/:id/:date",rdvServController.planning_emp_fn);
+router.get("/employe/planning/:id/:date",rdvServController.planning_emp_fn); // planning emp par rapport a une date
+router.patch("/employe/planning/check",rdvServController.check_fn); // cocher et decocher to do
 
 
 module.exports = router;

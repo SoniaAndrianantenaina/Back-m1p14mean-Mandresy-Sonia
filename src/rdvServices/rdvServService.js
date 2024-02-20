@@ -68,4 +68,24 @@ var planing_by_emp_by_date=async(id_emp,date)=>{
 
 }
 
-module.exports = { ajoutRDVServices,planing_by_emp_by_date };
+var check=async(id_serv,etat)=>{
+  if(etat){
+    etat=false;
+  }
+  else{
+    etat=true;
+  }
+  try{
+    console.log("ty"+etat)
+    let data={
+      "fait":etat
+    }
+    let serv=await rdvServModel.findByIdAndUpdate(id_serv,data);
+    // console.log(serv);
+  }
+  catch(e){
+    throw e
+  }
+}
+
+module.exports = { ajoutRDVServices,planing_by_emp_by_date,check };

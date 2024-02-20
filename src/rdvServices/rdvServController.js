@@ -33,4 +33,14 @@ var planning_emp_fn=async(req,res)=>{
     res.send({"status":false,"data":null});
   }
 }
-module.exports = {ajoutServicesPriseRDV,planning_emp_fn};
+
+var check_fn=async(req,res)=>{
+  try{
+    await rdvServServices.check(req.body.id_serv,req.body.etat);
+    res.send({"status":true});
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
+module.exports = {ajoutServicesPriseRDV,planning_emp_fn,check_fn};
