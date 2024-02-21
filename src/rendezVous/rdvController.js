@@ -19,8 +19,17 @@ var ajoutPriseRDV = async (req, res) => {
   }
 };
 
-var listefn=async(req,res)=>{
-    let liste= await rdvserv.liste();
-    res.send({"data": liste})
-}
-module.exports ={ajoutPriseRDV,listefn};
+
+var listePriseRDV = async (req, res) => {
+  try {
+    const clientId = req.params.clientId;
+    const listeRDV = await rdvService.listerRDV(clientId);
+    res.status(201).json(listeRDV);
+  } catch (error) {
+    console.error("erreur liste prise RDV:", error);
+    res.status(500).json({ message: "erreur liste" });
+  }
+};
+
+module.exports ={ajoutPriseRDV,listePriseRDV};
+

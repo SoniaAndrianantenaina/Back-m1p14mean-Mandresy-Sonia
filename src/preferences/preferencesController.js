@@ -23,7 +23,7 @@ module.exports.listePref = async (req, res) => {
     const listPref = await preferencesService.listerPreferences(clientId);
     res.status(201).json(listPref);
   } catch (error) {
-    console.error("erreur liste :", error);
+    console.error("erreur liste preferences client:", error);
     res.status(500).json({ message: "erreur liste" });
   }
 };
