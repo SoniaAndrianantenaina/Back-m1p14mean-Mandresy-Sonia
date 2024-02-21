@@ -36,13 +36,21 @@ async function ajoutRDVServices(
 }
 
 var filtre_by_date_rdv=(liste)=>{
-  var val=[];
+  let commissionT=0;
+  let val=[];
   for(let i=0;i<liste.length;i++){
     if(liste[i].rdv != null ){
       val.push(liste[i]);
+      if(liste[i].fait){
+        commissionT= commissionT+(liste[i].service.prix * liste[i].service.commission)/100; // commission total
+      }
     }
   }
-  return val;
+  let data={
+    "rdv":val,
+    "commissionTotal":commissionT
+  }
+  return data;
 }
 
 var planing_by_emp_by_date=async(id_emp,date)=>{
@@ -76,16 +84,15 @@ var check=async(id_serv,etat)=>{
     etat=true;
   }
   try{
-    console.log("ty"+etat)
     let data={
       "fait":etat
     }
-    let serv=await rdvServModel.findByIdAndUpdate(id_serv,data);
-    // console.log(serv);
+    await rdvServModel.findByIdAndUpdate(id_serv,data);
   }
   catch(e){
     throw e
   }
 }
+
 
 module.exports = { ajoutRDVServices,planing_by_emp_by_date,check };
