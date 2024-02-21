@@ -56,7 +56,7 @@ var filtre_by_date_rdv=(liste)=>{
 var planing_by_emp_by_date=async(id_emp,date)=>{
 
   try{
-    let planning= await rdvServModel.find({'employe':id_emp})
+    let planning= await rdvServModel.find({'employe':id_emp}).sort({ heure_fin: 1 })
     .populate("employe")
     .populate({path:"service",match:{}})
     .populate({ 
