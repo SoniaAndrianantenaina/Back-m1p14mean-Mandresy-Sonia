@@ -2,13 +2,15 @@ const preferencesService = require("./preferencesService");
 
 module.exports.ajoutPref = async (req, res) => {
   try {
-    const { client, service, employe } = req.body;
-    const preferenceAjoutee = await preferencesService.ajouterPreferences(
-      client,
-      service,
-      employe
-    );
-    res.status(201).json(preferenceAjoutee);
+    const { clientId, serviceId, employeId } = req.body;
+    if (clientId && serviceId && employeId) {
+      const preferenceAjoutee = await preferencesService.ajouterPreferences(
+        clientId,
+        serviceId,
+        employeId
+      );
+      res.status(201).json(preferenceAjoutee);
+    }
   } catch (error) {
     console.error("Erreur lors de l'ajout de la préférence :", error);
     res
