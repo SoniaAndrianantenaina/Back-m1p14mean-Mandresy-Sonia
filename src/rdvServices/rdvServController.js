@@ -23,14 +23,31 @@ var ajoutServicesPriseRDV = async (req, res) => {
   }
 };
 
-var planning_emp_fn=async(req,res)=>{
-  try{
-    let planning=await rdvServServices.planing_by_emp_by_date(req.params.id,req.params.date);
-    res.send({"status":true,"data":planning});
+var listeServicesPriseRDV = async (req, res) => {
+  try {
+    const rdvId = req.params.rdvId;
+    const listeServRDV = await rdvServServices.listeServRDV(rdvId);
+    res.status(201).json(listeServRDV);
+  } catch (error) {
+    console.error("erreur liste services prise RDV:", error);
+    res.status(500).json({ message: "erreur liste" });
   }
-  catch (error) {
+};
+
+var planning_emp_fn = async (req, res) => {
+  try {
+    let planning = await rdvServServices.planing_by_emp_by_date(
+      req.params.id,
+      req.params.date
+    );
+    res.send({ status: true, data: planning });
+  } catch (error) {
     console.error(error);
-    res.send({"status":false,"data":null});
+    res.send({ status: false, data: null });
   }
-}
-module.exports = {ajoutServicesPriseRDV,planning_emp_fn};
+};
+module.exports = {
+  ajoutServicesPriseRDV,
+  planning_emp_fn,
+  listeServicesPriseRDV,
+};

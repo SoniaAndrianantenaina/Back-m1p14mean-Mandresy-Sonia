@@ -9,7 +9,7 @@ var rdvServController = require("../src/rdvServices/rdvServController");
 
 var serv_contr = require("../src/services/servicesController");
 var gest_token = require("../src/Gestion_token");
-var rdvContr=require("../src/rendezVous/rdvController");
+var rdvContr = require("../src/rendezVous/rdvController");
 
 const check_token = (req, res, next) => {
   let check = gest_token.verif_token(req.body.ref);
@@ -45,15 +45,16 @@ router
   .route("/preferences/liste/:clientId")
   .get(preferenceController.listePref);
 
-
 //rdv
 router.route("/client/ajoutRDV").post(rdvController.ajoutPriseRDV);
 router.route("/client/listeRDV/:clientId").get(rdvController.listePriseRDV);
 router
   .route("/client/ajoutServicesRDV")
   .post(rdvServController.ajoutServicesPriseRDV);
+router
+  .route("/client/listeServRDV/:rdvId")
+  .get(rdvServController.listeServicesPriseRDV);
 
-router.get("/employe/planning/:id/:date",rdvServController.planning_emp_fn);
-
+router.get("/employe/planning/:id/:date", rdvServController.planning_emp_fn);
 
 module.exports = router;
