@@ -18,4 +18,23 @@ var save=async(offre,id_service,pourcentage)=>{
   
 }
 
-module.exports={save}
+var get_services_by_offre=async(offre)=>{
+    try{
+        let services= await osServModel.find({offre_speciale:offre}).populate("service");
+        return services;
+    }
+    catch(err){
+        throw err;
+    }
+}
+
+var delete_serv_offre=async(id_offre)=>{
+    try{
+        await osServModel.deleteMany({offre_speciale:id_offre});
+    }
+    catch(err){
+        throw err;
+    }
+}
+
+module.exports={save,get_services_by_offre,delete_serv_offre}
