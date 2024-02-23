@@ -16,7 +16,7 @@ var osServSchema = new Schema({
     type: Number,
     required: true,
   },
-  collection: "os_services",
+  // collection: "os_services",
 });
 
-module.exports = mongoose.model("osServices", osServSchema);
+module.exports = mongoose.model("osServices", osServSchema,"os_services");
