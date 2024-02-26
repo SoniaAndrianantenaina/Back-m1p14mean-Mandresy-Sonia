@@ -9,9 +9,12 @@ async function ajouterPreferences(clientId, serviceId, employeId) {
     const client = await Client.findById(clientId);
     const service = await Service.findById(serviceId);
     const employe = await Employe.findById(employeId);
-
-    if (!client || !service || !employe) {
-      throw new Error("Client, service ou employé non trouvé");
+    if (!client) {
+      throw new Error("Client non trouvé");
+    } else if (!service) {
+      throw new Error(" service non trouvé");
+    } else if (!employe) {
+      throw new Error(" employé non trouvé");
     }
 
     const nouvellePreference = new Preference({
