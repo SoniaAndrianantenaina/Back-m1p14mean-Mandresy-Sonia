@@ -18,7 +18,7 @@ var offreSpecialeSchema = new Schema({
     type: Date,
     required: true,
   },
-  collection: "offres_speciales",
+  // collection: "offres_speciales",
 });
 
-module.exports = mongoose.model("offreSpeciale", offreSpecialeSchema);
+module.exports = mongoose.model("offreSpeciale", offreSpecialeSchema,'offres_speciales');

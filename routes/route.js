@@ -56,7 +56,14 @@ router
   .route("/client/listeServRDV/:rdvId")
   .get(rdvServController.listeServicesPriseRDV);
 
-router.get("/employe/planning/:id/:date", rdvServController.planning_emp_fn); // planning emp par rapport a une date
-router.patch("/employe/planning/check", rdvServController.check_fn); // cocher et decocher to do
+
+router.get("/employe/planning/:id/:date",rdvServController.planning_emp_fn); // planning emp par rapport a une date
+router.patch("/employe/planning/check",rdvServController.check_fn); // cocher et decocher to do
+
+var os_contr=require("../src/offreSpeciale/offreSpecialeController");
+const offreSpecialeController = require("../src/offreSpeciale/offreSpecialeController");
+router.post("/manager/offreSpecial/save",os_contr.save_fn); // ajout offreSpeciale et update
+router.get("/manager/offre_speciales",os_contr.liste_fn); // liste
+router.delete("/manager/offre_speciale/:id_offre",offreSpecialeController.delete_offre_fn); // delete
 
 module.exports = router;
