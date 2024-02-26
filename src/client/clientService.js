@@ -40,3 +40,12 @@ module.exports.login = async (clientDetails) => {
     return { status: false, message: "Adresse email incorrecte" };
   }
 };
+
+module.exports.liste=async()=>{
+  try{ 
+    return await clientModel.find({});
+  }
+  catch(err){
+    throw err;
+  }
+}

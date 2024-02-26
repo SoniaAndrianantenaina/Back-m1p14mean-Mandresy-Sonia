@@ -66,4 +66,7 @@ router.post("/manager/offreSpecial/save",os_contr.save_fn); // ajout offreSpecia
 router.get("/manager/offre_speciales",os_contr.liste_fn); // liste
 router.delete("/manager/offre_speciale/:id_offre",offreSpecialeController.delete_offre_fn); // delete
 
+var notif_service=require("../src/Notification/Notification_service");
+router.get("/notifs",notif_service.get_notif_today); // liste
+
 module.exports = router;

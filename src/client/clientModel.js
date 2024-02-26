@@ -22,6 +22,9 @@ var clientSchema = new Schema({
     type: Number,
     required: true,
   },
+  token_appareil :{
+    type: String
+  },
 });
 
 module.exports = mongoose.model("client", clientSchema, "clients");
