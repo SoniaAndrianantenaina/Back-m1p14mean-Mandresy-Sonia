@@ -51,6 +51,7 @@ async function listeServRDV(rdvId) {
 
 var filtre_by_date_rdv = (liste) => {
   var val = [];
+  let commissionT=0;
   for (let i = 0; i < liste.length; i++) {
     if (liste[i].rdv != null) {
       val.push(liste[i]);
@@ -70,6 +71,9 @@ var filtre_by_date_rdv = (liste) => {
 
 var planing_by_emp_by_date = async (id_emp, date) => {
   try {
+    let date_utc=new Date(date);
+    date_utc.setUTCHours(date_utc.getUTCHours()-3);
+    
     let planning = await rdvServModel
       .find({ employe: id_emp })
       .sort({ heure_fin: 1 })
@@ -77,7 +81,7 @@ var planing_by_emp_by_date = async (id_emp, date) => {
       .populate({ path: "service", match: {} })
       .populate({
         path: "rdv",
-        match: { dateRDV: date },
+        match: { dateRDV: date_utc },
         populate: {
           path: "client",
         },

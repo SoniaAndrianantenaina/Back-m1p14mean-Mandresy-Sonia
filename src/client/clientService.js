@@ -23,7 +23,7 @@ module.exports.inscriptionClientService = async (clientDetails) => {
   }
 };
 
-module.exports.login = async (clientDetails) => {
+module.exports.login = async (clientDetails,token) => {
   const { email, mdp } = clientDetails;
 
   const emailClient = await clientModel.findOne({ email });
@@ -32,6 +32,7 @@ module.exports.login = async (clientDetails) => {
     const mdpVerified = await bcrypt.compare(mdp, emailClient.mdp);
 
     if (mdpVerified) {
+      await clientModel.findByIdAndUpdate(emailClient._id,{token_appareil:token})
       return { status: true, message: "Connecté!", clientId: emailClient._id }; // Mot de passe correct, renvoie l'ID du client
     } else {
       return { status: false, message: "Mot de passe incorrect" };
@@ -40,3 +41,12 @@ module.exports.login = async (clientDetails) => {
     return { status: false, message: "Adresse email incorrecte" };
   }
 };
+
+module.exports.liste=async()=>{
+  try{ 
+    return await clientModel.find({});
+  }
+  catch(err){
+    throw err;
+  }
+}

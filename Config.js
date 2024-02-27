@@ -5,4 +5,6 @@ const mail_config={
     "mdp":"fzxx kgxs yigu mucp"
 };
 
-module.exports={db_name, use_https,mail_config}
+const heure_envoie_notif="44 12 * * *"// min h j mois annee
+
+module.exports={db_name, use_https,mail_config,heure_envoie_notif}

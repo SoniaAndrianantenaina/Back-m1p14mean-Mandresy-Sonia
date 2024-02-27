@@ -1,39 +1,38 @@
 var offreSpecialeModel = require("./offreSpecialeModel");
 var offre_spec_serv=require("../OS_Services/osServService");
 var offre_spec_serv_model = require("../OS_Services/osServModel")
+var notif_service=require("../Notification/Notification_service");
+
 const mongoose = require('mongoose');
 var save=async(data,services)=>{
-    // let os=new offreSpecialeModel();
-    // os.nom=data.nom;
-    // os.description=data.description;
-    // os.date_debut=data.date_debut;
-    // os.date_fin=data.date_fin;
     try{
         const session = await mongoose.startSession();
         session.startTransaction();
         try{
             let os;
-            console.log(data)
+           
             if(data._id!=''){
                 let id=data._id;
                 let data2=data;
                 delete data2._id;
                 os=await offreSpecialeModel.findByIdAndUpdate(id,data2);
                 await offre_spec_serv_model.deleteMany({offre_speciale:id});
+                await notif_service.save_and_planifier(os);
             }
             else{
                 delete data._id;
                 os = new offreSpecialeModel(data);
                 os = await os.save();
+               await notif_service.save_and_planifier(os);
             }
-            console.log(os);
+            // console.log(os);
             for(let i=0; i<services.length; i++){
                await offre_spec_serv.save(os,services[i].service._id,services[i].reduction);
             }
             await session.commitTransaction();
             session.endSession();
     
-            console.log("Transaction réussie !");
+            // console.log("Transaction réussie !");
         }
         catch(err){
             await session.abortTransaction();
