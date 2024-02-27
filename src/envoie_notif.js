@@ -4,6 +4,7 @@ const client_serv=require('./client/clientService');
 const Notification_service=require('./Notification/Notification_service');
 
 var serviceAccount = require("../coiffure-b3071-firebase-adminsdk-7npxr-21b61a76af.json");
+const config=require("../Config")
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -45,7 +46,7 @@ async function sendNotif(){
  
 }
 
-cron.schedule('00 09 * * *', () => {
+cron.schedule(config.heure_envoie_notif, () => {
 
   sendNotif();
 });

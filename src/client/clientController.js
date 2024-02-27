@@ -10,7 +10,7 @@ var inscriptionClient = async (req, res) => {
 };
 
 var loginClient = async (req, res) => {
-  var result = await clientService.login(req.body);
+  var result = await clientService.login(req.body.clientDetails,req.body.token_appareil);
   res.send(result);
 };
 
