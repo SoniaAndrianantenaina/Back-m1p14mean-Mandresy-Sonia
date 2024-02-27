@@ -15,7 +15,7 @@ var depenseSchema = new Schema({
     type: Date,
     required: true,
   },
-  collection: "depenses",
+  // collection: "depenses",
 });
 
-module.exports = mongoose.model("depenses", depenseSchema);
+module.exports = mongoose.model("depenses", depenseSchema,"depenses");
