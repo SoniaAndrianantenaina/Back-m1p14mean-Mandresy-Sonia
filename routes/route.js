@@ -69,4 +69,6 @@ router.delete("/manager/offre_speciale/:id_offre",offreSpecialeController.delete
 var notif_service=require("../src/Notification/Notification_service");
 router.get("/notifs",notif_service.get_notif_today); // liste
 
+router.post("/manager/rdv",rdvServController.historique_fn);
+
 module.exports = router;

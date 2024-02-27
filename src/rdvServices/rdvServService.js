@@ -109,9 +109,73 @@ var check = async (id_serv, etat) => {
   }
 };
 
+var historique=async(date,service,employe)=>{
+    let liste;
+    let date_utc=new Date(date);
+    date_utc.setUTCHours(date_utc.getUTCHours()-3);
+    try{
+    if(service!='' && employe!='' && date!='') {
+      liste = await rdvServModel.find({service:service,employe:employe})
+      .populate('service')
+      .populate('employe')
+      .populate({
+        path: "rdv",
+        match: { dateRDV: date_utc },
+        populate: {
+          path: "client",
+        },
+      });
+      return filtre_by_date_rdv(liste);
+    }
+    else if(service!='' && employe=='' && date!=''){
+      liste = await rdvServModel.find({service:service})
+      .populate('service')
+      .populate('employe')
+      .populate({
+        path: "rdv",
+        match: { dateRDV: date_utc },
+        populate: {
+          path: "client",
+        },
+      });
+      return filtre_by_date_rdv(liste);
+    }
+    else if(service=='' && employe!='' && date!=''){
+      liste = await rdvServModel.find({employe:employe})
+      .populate('service')
+      .populate('employe')
+      .populate({
+        path: "rdv",
+        match: { dateRDV: date_utc },
+        populate: {
+          path: "client",
+        },
+      });
+      return filtre_by_date_rdv(liste);
+    }
+    else if(service=='' && employe=='' && date!=''){
+      liste = await rdvServModel.find({})
+      .populate('service')
+      .populate('employe')
+      .populate({
+        path: "rdv",
+        match: { dateRDV: date_utc },
+        populate: {
+          path: "client",
+        },
+      });
+      return filtre_by_date_rdv(liste);
+    }
+  }
+  catch(e) {
+    throw e;
+  }
+}
+
 module.exports = {
   ajoutRDVServices,
   planing_by_emp_by_date,
   check,
   listeServRDV,
+  historique
 };
