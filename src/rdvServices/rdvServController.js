@@ -40,6 +40,7 @@ var planning_emp_fn = async (req, res) => {
       req.params.id,
       req.params.date
     );
+    console.log(planning);
     res.send({ status: true, data: planning });
   } catch (error) {
     console.error(error);
@@ -55,9 +56,23 @@ var check_fn = async (req, res) => {
     console.error(error);
   }
 };
+
+var historique_fn = async (req, res) => {
+  try{
+    let liste = await rdvServServices.historique(req.body.date,req.body.service,req.body.employe);
+    console.log(liste);
+    res.send({ status: true, data: liste });
+  }
+  catch(e){
+    console.log(e)
+    res.send({status:false});
+  }
+  
+}
 module.exports = {
   ajoutServicesPriseRDV,
   planning_emp_fn,
   check_fn,
   listeServicesPriseRDV,
+  historique_fn
 };
