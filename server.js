@@ -1,5 +1,6 @@
 const express=require('express');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 const app = express();
 const cors= require('cors');
 var routes= require('./routes/route');
@@ -25,6 +26,9 @@ db.once('open', _ => {
 db.on('error', err => {
   console.error('connection error:', err)
 })
+
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(cors());
 app.use(express.json());
