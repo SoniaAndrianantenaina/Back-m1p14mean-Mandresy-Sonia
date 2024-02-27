@@ -5,7 +5,7 @@ var save_service = async (data)=>{
     serv.delai=data.delai;
     serv.prix=data.prix;
     serv.commission=data.commission;
-
+    serv.image=data.image
     try{
         await serv.save();
         return true;
@@ -29,7 +29,7 @@ var update_service = async (id,data)=>{
     if(await nom_not_change(id,data.nom)){
         delete data.nom;
     }
-    console.log(data)
+    // console.log(data)
     try{
         await servicesModel.findByIdAndUpdate(id,data);
         return true;
