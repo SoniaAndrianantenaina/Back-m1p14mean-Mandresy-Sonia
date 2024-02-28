@@ -86,5 +86,7 @@ router.get("/manager/depense/delete/:id",depense_contr.supprimer_fn);
 var type_depense_contr=require("../src/typeDepense/typeDepenseController");
 router.get("/manager/type_depenses",type_depense_contr.liste_fn); // liste
 
+var os_service_contr=require("../src/OS_Services/osServController");
+router.get("/client/offre_today/:date",os_service_contr.get_offre_today);
 
 module.exports = router;

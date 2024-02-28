@@ -23,6 +23,10 @@ var rdvSchema = new Schema({
     type: Number,
     required: true,
   },
+  montant_a_paye:{
+    type: Number,
+    required: true,
+  }
 });
 
 module.exports = mongoose.model("rdv", rdvSchema, "rdv");

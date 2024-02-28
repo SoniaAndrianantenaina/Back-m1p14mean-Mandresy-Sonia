@@ -37,4 +37,26 @@ var delete_serv_offre=async(id_offre)=>{
     }
 }
 
-module.exports={save,get_services_by_offre,delete_serv_offre}
+var get_offre_service_dujour=async(date)=>{
+    let val=[];
+    let dateUTC= new Date(date);
+    let dateLocal= new Date(dateUTC.getFullYear(), dateUTC.getMonth(), dateUTC.getDate());
+    // console.log(dateLocal)
+    try{
+        let liste=await osServModel.find({}).populate("service").populate("offre_speciale");
+        if(liste){
+            for(let i=0; i<liste.length; i++){
+                // console.log(liste[i].offre_speciale.date_debut)
+                if(dateLocal>= (liste[i].offre_speciale.date_debut) && dateLocal <= (liste[i].offre_speciale.date_fin)){
+                    val.push(liste[i]);
+                }
+            }
+        }
+        return val;
+    }
+    catch(e){
+        throw e;
+    }
+}
+
+module.exports={save,get_services_by_offre,delete_serv_offre,get_offre_service_dujour}
