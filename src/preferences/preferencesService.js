@@ -30,6 +30,18 @@ async function ajouterPreferences(clientId, serviceId, employeId) {
   }
 }
 
+async function deletePref(idPref) {
+  try {
+    await preferencesModel.findByIdAndDelete(idPref);
+  } catch (error) {
+    console.error(
+      "Erreur lors de la suppression de l'élément dans le service:",
+      error
+    );
+    throw error;
+  }
+}
+
 async function listerPreferences(clientId) {
   try {
     // console.log(clientId);
@@ -57,4 +69,4 @@ async function listerPreferences(clientId) {
     throw error;
   }
 }
-module.exports = { ajouterPreferences, listerPreferences };
+module.exports = { ajouterPreferences, listerPreferences, deletePref };

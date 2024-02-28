@@ -45,6 +45,9 @@ router.route("/preferences/ajout").post(preferenceController.ajoutPref);
 router
   .route("/preferences/liste/:clientId")
   .get(preferenceController.listePref);
+router
+  .route("/preferences/delete/:prefId")
+  .get(preferenceController.deletePref);
 
 //rdv
 router.route("/client/ajoutRDV").post(rdvController.ajoutPriseRDV);
@@ -56,15 +59,18 @@ router
   .route("/client/listeServRDV/:rdvId")
   .get(rdvServController.listeServicesPriseRDV);
 
+router.get("/employe/planning/:id/:date", rdvServController.planning_emp_fn); // planning emp par rapport a une date
+router.patch("/employe/planning/check", rdvServController.check_fn); // cocher et decocher to do
 
-router.get("/employe/planning/:id/:date",rdvServController.planning_emp_fn); // planning emp par rapport a une date
-router.patch("/employe/planning/check",rdvServController.check_fn); // cocher et decocher to do
-
-var os_contr=require("../src/offreSpeciale/offreSpecialeController");
+var os_contr = require("../src/offreSpeciale/offreSpecialeController");
 const offreSpecialeController = require("../src/offreSpeciale/offreSpecialeController");
-router.post("/manager/offreSpecial/save",os_contr.save_fn); // ajout offreSpeciale et update
-router.get("/manager/offre_speciales",os_contr.liste_fn); // liste
-router.delete("/manager/offre_speciale/:id_offre",offreSpecialeController.delete_offre_fn); // delete
+router.post("/manager/offreSpecial/save", os_contr.save_fn); // ajout offreSpeciale et update
+router.get("/manager/offre_speciales", os_contr.liste_fn); // liste
+router.delete(
+  "/manager/offre_speciale/:id_offre",
+  offreSpecialeController.delete_offre_fn
+); // delete
+
 
 // var notif_service=require("../src/Notification/Notification_service");
 // router.get("/notifs",notif_service.get_notif_today); // liste
@@ -79,5 +85,6 @@ router.get("/manager/depense/delete/:id",depense_contr.supprimer_fn);
 
 var type_depense_contr=require("../src/typeDepense/typeDepenseController");
 router.get("/manager/type_depenses",type_depense_contr.liste_fn); // liste
+
 
 module.exports = router;
