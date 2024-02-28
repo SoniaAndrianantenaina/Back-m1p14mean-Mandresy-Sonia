@@ -1,7 +1,7 @@
 const clientModel = require("../client/clientModel");
 var rdvModel = require("./rdvModel");
 
-async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total) {
+async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total,montant_a_paye) {
   try {
     const client = await clientModel.findById(clientId);
 
@@ -15,6 +15,7 @@ async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total) {
       dateRDV,
       paye,
       montant_Total,
+      montant_a_paye
     });
     const nouveauRdv = await nouvellePriseRDV.save();
     if (nouveauRdv) {

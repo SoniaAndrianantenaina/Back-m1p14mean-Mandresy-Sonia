@@ -2,13 +2,14 @@ const rdvService = require("./rdvService");
 
 var ajoutPriseRDV = async (req, res) => {
   try {
-    const { client, date_priseRDV, dateRDV, paye, montant_Total } = req.body;
+    const { client, date_priseRDV, dateRDV, paye, montant_Total,montant_a_paye } = req.body;
     const rdvAjoutee = await rdvService.priseRDV(
       client,
       date_priseRDV,
       dateRDV,
       paye,
-      montant_Total
+      montant_Total,
+      montant_a_paye
     );
     if (!rdvAjoutee) {
       res.status(500).json({ status: false, data: "Error creating rdv" });
