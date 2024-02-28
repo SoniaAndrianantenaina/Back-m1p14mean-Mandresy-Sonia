@@ -15,6 +15,10 @@ var depenseSchema = new Schema({
     type: Date,
     required: true,
   },
+  description:{
+    type: String,
+    required: true,
+  }
   // collection: "depenses",
 });
 

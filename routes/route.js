@@ -66,9 +66,18 @@ router.post("/manager/offreSpecial/save",os_contr.save_fn); // ajout offreSpecia
 router.get("/manager/offre_speciales",os_contr.liste_fn); // liste
 router.delete("/manager/offre_speciale/:id_offre",offreSpecialeController.delete_offre_fn); // delete
 
-var notif_service=require("../src/Notification/Notification_service");
-router.get("/notifs",notif_service.get_notif_today); // liste
+// var notif_service=require("../src/Notification/Notification_service");
+// router.get("/notifs",notif_service.get_notif_today); // liste
 
-router.post("/manager/rdv",rdvServController.historique_fn);
+router.post("/manager/rdv",rdvServController.historique_fn); // manager historique rdv 
+
+var depense_contr=require("../src/depenses/depensesController"); // depense
+router.get("/manager/depenses/filtre/:type/:mois/:annee",depense_contr.liste_by_type_fn); // filtre by type annee mois
+router.post("/manager/depense/save",depense_contr.save_fn);
+router.get("/manager/depenses",depense_contr.liste_fn); // liste
+router.get("/manager/depense/delete/:id",depense_contr.supprimer_fn);
+
+var type_depense_contr=require("../src/typeDepense/typeDepenseController");
+router.get("/manager/type_depenses",type_depense_contr.liste_fn); // liste
 
 module.exports = router;
