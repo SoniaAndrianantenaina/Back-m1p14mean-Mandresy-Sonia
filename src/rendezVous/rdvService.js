@@ -1,7 +1,6 @@
 const clientModel = require("../client/clientModel");
 var rdvModel = require("./rdvModel");
 
-
 async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total) {
   try {
     const client = await clientModel.findById(clientId);
@@ -17,14 +16,17 @@ async function priseRDV(clientId, date_priseRDV, dateRDV, paye, montant_Total) {
       paye,
       montant_Total,
     });
-
-    return await nouvellePriseRDV.save();
+    const nouveauRdv = await nouvellePriseRDV.save();
+    if (nouveauRdv) {
+      return nouveauRdv._id;
+    } else {
+      return 0;
+    }
   } catch (error) {
     console.error("Erreur lors de l'ajout de la prise de RDV :", error);
     throw error;
   }
 }
-
 
 async function listerRDV(clientId) {
   try {
@@ -39,4 +41,3 @@ async function listerRDV(clientId) {
 }
 
 module.exports = { priseRDV, listerRDV };
-
