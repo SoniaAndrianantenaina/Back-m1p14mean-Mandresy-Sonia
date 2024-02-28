@@ -6,7 +6,7 @@ var typeDepenseSchema = new Schema({
     type: String,
     required: true,
   },
-  collection: "type_depenses",
+  // collection: "type_depenses",
 });
 
-module.exports = mongoose.model("typeDepense", typeDepenseSchema);
+module.exports = mongoose.model("typeDepense", typeDepenseSchema,"type_depenses");

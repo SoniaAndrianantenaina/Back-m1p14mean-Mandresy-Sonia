@@ -15,7 +15,11 @@ var depenseSchema = new Schema({
     type: Date,
     required: true,
   },
-  collection: "depenses",
+  description:{
+    type: String,
+    required: true,
+  }
+  // collection: "depenses",
 });
 
-module.exports = mongoose.model("depenses", depenseSchema);
+module.exports = mongoose.model("depenses", depenseSchema,"depenses");
