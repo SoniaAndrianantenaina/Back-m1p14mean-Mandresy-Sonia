@@ -10,8 +10,18 @@ var inscriptionClient = async (req, res) => {
 };
 
 var loginClient = async (req, res) => {
-  var result = await clientService.login(req.body.clientDetails,req.body.token_appareil);
-  res.send(result);
+  var result = await clientService.login(
+    req.body.clientDetails,
+    req.body.token_appareil
+  );
+  if (result == 0) {
+    res.send({ status: false, data: "Adresse email incorrect" });
+  } else {
+    let data = {
+      idClient: result,
+    };
+    res.send({ status: true, data: data });
+  }
 };
 
 module.exports = {

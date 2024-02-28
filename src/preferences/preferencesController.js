@@ -35,3 +35,13 @@ module.exports.listePref = async (req, res) => {
     res.status(500).json({ message: "erreur liste" });
   }
 };
+
+module.exports.deletePref = async (req, res) => {
+  try {
+    const prefId = req.params.prefId;
+    await preferencesService.deletePref(prefId);
+    res.send({ status: true, data: "Votre préférence a bien été supprimée" });
+  } catch (error) {
+    res.send({ status: false, data: "Votre préférence n'a pas été supprimée" });
+  }
+};
