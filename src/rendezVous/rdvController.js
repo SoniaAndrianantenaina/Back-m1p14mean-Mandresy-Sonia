@@ -10,15 +10,16 @@ var ajoutPriseRDV = async (req, res) => {
       paye,
       montant_Total
     );
-    res.status(201).json(rdvAjoutee);
+    if (!rdvAjoutee) {
+      res.status(500).json({ status: false, data: "Error creating rdv" });
+    } else {
+      res.status(200).json({ status: true, data: { id: rdvAjoutee } });
+    }
   } catch (error) {
     console.error("Erreur lors de l'ajout de la prise de RDV :", error);
-    res
-      .status(500)
-      .json({ message: "Erreur lors de l'ajout de la prise de RDV" });
+    res.status(500).json({ status: false, data: "Internal server error" });
   }
 };
-
 
 var listePriseRDV = async (req, res) => {
   try {
@@ -31,5 +32,4 @@ var listePriseRDV = async (req, res) => {
   }
 };
 
-module.exports ={ajoutPriseRDV,listePriseRDV};
-
+module.exports = { ajoutPriseRDV, listePriseRDV };
