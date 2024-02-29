@@ -104,6 +104,6 @@ router.get("/statistiques/CA", statsContr.getCA);
 var benefice_contr = require("../src/Stats_benefice/Benefice_contr");
 router.get("/manager/benefice/:mois/:annee", benefice_contr.benefice_fn);
 
-// router.get('/rappels',rdvContr.get_rappel_rdv_fn); 
+// router.get('/rappels',rdvContr.get_rappel_rdv_fn);
 
 module.exports = router;
