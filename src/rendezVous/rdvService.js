@@ -102,4 +102,31 @@ var get_rdv_by_mois_annee = async(mois,annee)=>{
   }
 }
 
-module.exports = { priseRDV, listerRDV ,get_rdv_by_mois_annee};
+var get_rdv_dans_1J=(liste,date)=>{
+  console.log(date);
+  let val=[];
+  for(let i=0;i<liste.length;i++){
+    console.log(liste[i].dateRDV);
+    let diff_h=(liste[i].dateRDV-date)/ (1000 * 60 * 60)
+    console.log(diff_h);
+    if(diff_h <= 24 ){
+      let data={
+        "rdv":liste[i],
+        "delai":Math.floor(diff_h),
+      }
+      val.push(data);
+    }
+  }
+  return val;
+}
+
+var get_rappel_rdv=async()=>{
+  let date=new Date();
+  let liste= await rdvModel.find({
+    dateRDV:{$gt:date}
+  }).populate('client');
+  return get_rdv_dans_1J(liste,date);
+  
+}
+
+module.exports = { priseRDV, listerRDV ,get_rdv_by_mois_annee,get_rappel_rdv};
