@@ -99,8 +99,9 @@ router.get("/client/offre_today/:date", os_service_contr.get_offre_today);
 var statsContr = require("../src/statistiques/statsController");
 router.get("/statistiques/tempsMoyen", statsContr.tempsMoyenTravailEmpl);
 router.get("/statistiques/nbRdv", statsContr.nbRDVStat);
+router.get("/statistiques/CA", statsContr.getCA);
 
-var benefice_contr=require("../src/Stats_benefice/Benefice_contr");
-router.get("/manager/benefice/:mois/:annee",benefice_contr.benefice_fn);
+var benefice_contr = require("../src/Stats_benefice/Benefice_contr");
+router.get("/manager/benefice/:mois/:annee", benefice_contr.benefice_fn);
 
 module.exports = router;

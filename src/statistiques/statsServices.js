@@ -62,4 +62,44 @@ async function nbRDVJourMois() {
   return rdvsCount;
 }
 
-module.exports = { tempsMoyenTravail, nbRDVJourMois };
+async function getCA() {
+  var rdvs = await rdvModel.find({});
+  var CA = [];
+
+  var dateAujourdhui = new Date();
+  var moisEnCours = dateAujourdhui.getMonth();
+
+  var CAJour = 0;
+  var CAMois = 0;
+
+  rdvs.forEach((rdv) => {
+    var dateRDVS = new Date(rdv.dateRDV);
+    var moisRDVS = dateRDVS.getMonth();
+    if (
+      dateRDVS.toISOString().split("T")[0] ===
+        dateAujourdhui.toISOString().split("T")[0] &&
+      rdv.paye == true
+    ) {
+      if (rdv.montant_a_paye && rdv.montant_a_paye != 0) {
+        CAJour += rdv.montant_a_paye;
+      } else {
+        CAJour += rdv.montant_Total;
+      }
+    }
+
+    if (moisEnCours === moisRDVS && rdv.paye == true) {
+      if (rdv.montant_a_paye && rdv.montant_a_paye != 0) {
+        CAMois += rdv.montant_a_paye;
+      } else {
+        CAMois += rdv.montant_Total;
+      }
+    }
+  });
+
+  CA.push({ CAJour: CAJour });
+  CA.push({ CAMois: CAMois });
+  //   console.log(CA);
+  return CA;
+}
+
+module.exports = { tempsMoyenTravail, nbRDVJourMois, getCA };

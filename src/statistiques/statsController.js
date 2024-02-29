@@ -20,7 +20,18 @@ var nbRDVStat = async (req, res) => {
   }
 };
 
+var getCA = async (req, res) => {
+  try {
+    const CA = await statsServ.getCA();
+    res.status(201).json(CA);
+  } catch (error) {
+    console.error("erreur CA RDV:", error);
+    res.status(500).json({ message: "erreur liste" });
+  }
+};
+
 module.exports = {
   tempsMoyenTravailEmpl,
   nbRDVStat,
+  getCA,
 };
