@@ -7,8 +7,7 @@ var routes = require("./routes/route");
 const mongoose = require("mongoose");
 const config = require("./Config.js");
 const url =
-  "mongodb+srv://andrianantenainasonia:sonia0688@cluster0.jj3sjrp.mongodb.net/" +
-  config.db_name;
+  "mongodb+srv://andrianantenainasonia:sonia0688@cluster0.jj3sjrp.mongodb.net/coiffure";
 const crontTasks = require("./src/envoie_notif.js");
 
 app.use(
