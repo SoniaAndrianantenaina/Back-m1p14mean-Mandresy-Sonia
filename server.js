@@ -6,7 +6,7 @@ const cors= require('cors');
 var routes= require('./routes/route');
 const mongoose = require('mongoose');
 const config=require('./Config.js');
-const url = 'mongodb://127.0.0.1:27017/'+config.db_name;
+const url = config.db_url+config.db_name;
 const crontTasks = require('./src/envoie_notif.js');
 
 app.use(session({
