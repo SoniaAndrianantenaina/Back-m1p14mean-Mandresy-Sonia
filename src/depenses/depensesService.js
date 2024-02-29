@@ -6,6 +6,7 @@ var filtre_by_mois=(mois,liste)=>{
     for(let i=0;i<liste.length;i++){
         // let date=new Date(liste[i].date);
         // console.log(liste[i].date.getMonth())
+        liste[i].date.setHours(liste[i].date.getHours()+3)
         if(liste[i].date.getMonth()+1==mois){
             val.push(liste[i]);
         }
@@ -16,6 +17,7 @@ var filtre_by_annee=(annee,liste)=>{
     let val=[];
     for(let i=0;i<liste.length;i++){
         // let date=new Date(liste[i].date);
+        liste[i].date.setHours(liste[i].date.getHours()+3)
         if(liste[i].date.getFullYear()==annee){
             val.push(liste[i]);
         }
@@ -27,6 +29,7 @@ var filtre_by_mois_annee=(mois,annee,liste)=>{
     let val=[];
     for(let i=0;i<liste.length;i++){
         // let date=new Date(liste[i].date);
+        liste[i].date.setHours(liste[i].date.getHours()+3)
         if(liste[i].date.getMonth()+1==mois && liste[i].date.getFullYear()==annee){
             val.push(liste[i]);
         }
