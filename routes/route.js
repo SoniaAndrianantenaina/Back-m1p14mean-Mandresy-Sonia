@@ -89,4 +89,7 @@ router.get("/manager/type_depenses",type_depense_contr.liste_fn); // liste
 var os_service_contr=require("../src/OS_Services/osServController");
 router.get("/client/offre_today/:date",os_service_contr.get_offre_today);
 
+var benefice_contr=require("../src/Stats_benefice/Benefice_contr");
+router.get("/manager/benefice/:mois/:annee",benefice_contr.benefice_fn);
+
 module.exports = router;

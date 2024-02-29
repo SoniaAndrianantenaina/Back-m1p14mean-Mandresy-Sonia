@@ -41,4 +41,65 @@ async function listerRDV(clientId) {
   }
 }
 
-module.exports = { priseRDV, listerRDV };
+var filtre_mois_annee=(liste,mois,annee)=>{
+  let val=[];
+  for(let i=0;i<liste.length;i++) {
+    liste[i].dateRDV.setHours(liste[i].dateRDV.getHours()+3)
+    if(liste[i].dateRDV.getMonth()+1 == mois && liste[i].dateRDV.getFullYear()==annee){
+      val.push(liste[i]);
+    }
+  }
+  return val;
+}
+
+var filtre_mois=(liste,mois)=>{
+  let val=[];
+  for(let i=0;i<liste.length;i++) {
+    liste[i].dateRDV.setHours(liste[i].dateRDV.getHours()+3)
+    if(liste[i].dateRDV.getMonth()+1 == mois){
+      val.push(liste[i]);
+    }
+  }
+  return val;
+}
+
+var filtre_annee=(liste,annee)=>{
+  let val=[];
+  for(let i=0;i<liste.length;i++) {
+    liste[i].dateRDV.setHours(liste[i].dateRDV.getHours()+3)
+    if(liste[i].dateRDV.getFullYear()==annee){
+      val.push(liste[i]);
+    }
+  }
+  return val;
+}
+
+
+var get_rdv_by_mois_annee = async(mois,annee)=>{
+  let liste_rdv=[];
+  try{
+    let liste=await rdvModel.find({});
+
+    if(mois!=-1 && annee!=0){
+      liste_rdv=filtre_mois_annee(liste,mois,annee)
+    }
+
+    else if(mois!=-1 && annee==0){
+      liste_rdv=filtre_mois(liste,mois)
+    }
+
+    else if(mois==-1 && annee!=0){
+      liste_rdv=filtre_annee(liste,annee)
+    }
+    else if(mois==-1 && annee==0){
+      liste_rdv=liste;
+    }
+    return liste_rdv;
+  }
+
+  catch(e){
+    throw e;
+  }
+}
+
+module.exports = { priseRDV, listerRDV ,get_rdv_by_mois_annee};
