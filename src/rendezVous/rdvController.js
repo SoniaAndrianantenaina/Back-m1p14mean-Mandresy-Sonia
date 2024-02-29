@@ -33,4 +33,8 @@ var listePriseRDV = async (req, res) => {
   }
 };
 
-module.exports = { ajoutPriseRDV, listePriseRDV };
+var get_rappel_rdv_fn= async (req, res)=>{
+  let liste=await rdvService.get_rappel_rdv();
+  res.send(liste);
+}
+module.exports = { ajoutPriseRDV, listePriseRDV,get_rappel_rdv_fn};
