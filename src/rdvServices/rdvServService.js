@@ -48,6 +48,17 @@ async function listeServRDV(rdvId) {
     throw error;
   }
 }
+async function listerRdvAvecServices() {
+  try {
+    const liste = await rdvServModel.find({}).populate("rdv");
+    return liste;
+  } catch (error) {
+    console.error("erreur recup liste services RDV Client :", error);
+    throw error;
+  }
+}
+
+
 
 var filtre_by_date_rdv = (liste,date) => {
   var val = [];
@@ -81,6 +92,7 @@ var filtre_by_date_rdv = (liste,date) => {
   };
   return data;
 };
+
 
 var planing_by_emp_by_date = async (id_emp, date) => {
   try {
@@ -191,5 +203,6 @@ module.exports = {
   planing_by_emp_by_date,
   check,
   listeServRDV,
-  historique
+  historique,
+  listerRdvAvecServices,
 };

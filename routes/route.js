@@ -50,6 +50,10 @@ router
   .get(preferenceController.deletePref);
 
 //rdv
+router
+  .route("/client/listeRDVServ")
+  .get(rdvServController.listerTousServicesRdv);
+
 router.route("/client/ajoutRDV").post(rdvController.ajoutPriseRDV);
 router.route("/client/listeRDV/:clientId").get(rdvController.listePriseRDV);
 router
