@@ -32,9 +32,34 @@ async function tempsMoyenTravail() {
 
 async function nbRDVJourMois() {
   var rdvs = await rdvModel.find({});
+  var rdvsCount = [];
 
-  rdvs.forEach((rdv) => {});
-  return rdvs;
+  var dateAujourdhui = new Date();
+  var moisEnCours = dateAujourdhui.getMonth();
+
+  var totalRdvMois = 0;
+  var totalRdvJour = 0;
+
+  rdvs.forEach((rdv) => {
+    var dateRDVS = new Date(rdv.dateRDV);
+    var moisRDVS = dateRDVS.getMonth();
+
+    if (
+      dateRDVS.toISOString().split("T")[0] ===
+      dateAujourdhui.toISOString().split("T")[0]
+    ) {
+      totalRdvJour += Object.keys(rdv._id).length - 1;
+    }
+
+    if (moisEnCours === moisRDVS) {
+      totalRdvMois += Object.keys(rdv._id).length - 1;
+    }
+  });
+
+  rdvsCount.push({ NombreRDVJour: totalRdvJour });
+  rdvsCount.push({ NombreRDVMois: totalRdvMois });
+
+  return rdvsCount;
 }
 
 module.exports = { tempsMoyenTravail, nbRDVJourMois };
